@@ -3,25 +3,26 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
 
-    - name: Checkout source code
-      uses: actions/checkout@v2
+      - name: Checkout source code
+        uses: actions/checkout@v2
 
-    - name: Generate deployment package
-      run: zip -r deploy.zip . -x '*.git*'
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
 
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v21
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: ${{ secrets.APP_NAME }}
-        environment_name: ${{ secrets.APP_ENVIRONMENT_NAME }}
-        version_label: ${{ github.run_number }}
-        region: ${{ secrets.APP_REGION }}
-        deployment_package: deploy.zip
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ secrets.APP_NAME }}
+          environment_name: ${{ secrets.APP_ENVIRONMENT_NAME }}
+          version_label: ${{ github.run_number }}
+          region: ${{ secrets.APP_REGION }}
+          deployment_package: deploy.zip
