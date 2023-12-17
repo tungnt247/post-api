@@ -23,6 +23,6 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: ${{ secrets.APP_NAME }}
           environment_name: ${{ secrets.APP_ENVIRONMENT_NAME }}
-          version_label: ${{ github.run_number }}
+          version_label: "ver-${{ github.sha }}"
           region: ${{ secrets.APP_REGION }}
           deployment_package: deploy.zip
