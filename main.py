@@ -9,4 +9,4 @@ def health_check():
     Returns:
         _type_: json
     """
-    return {'message': 'okla'}
+    return {'message': 'ok ok'}
