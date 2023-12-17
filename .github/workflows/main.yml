@@ -24,5 +24,5 @@ jobs:
           application_name: ${{ secrets.APP_NAME }}
           environment_name: ${{ secrets.APP_ENVIRONMENT_NAME }}
           version_label: ${{ github.run_number }}
-          region: ${{ secrets.APP_REGION }}
+          region: ap-southest-1
           deployment_package: deploy.zip
