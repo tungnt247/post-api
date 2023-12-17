@@ -19,10 +19,10 @@ jobs:
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          aws_access_key: AKIAQRFQB7N4SPWHPACV
-          aws_secret_key: 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
-          application_name: api
-          environment_name: api-env
-          version_label: 12345
-          region: ap-southest-1
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ secrets.APP_NAME }}
+          environment_name: ${{ secrets.APP_ENVIRONMENT_NAME }}
+          version_label: ${{ github.run_number }}
+          region: ${{ secrets.APP_REGION }}
           deployment_package: deploy.zip
