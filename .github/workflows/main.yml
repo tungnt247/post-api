@@ -24,5 +24,6 @@ jobs:
           application_name: ${{ secrets.APP_NAME }}
           environment_name: ${{ secrets.APP_ENVIRONMENT_NAME }}
           version_label: ${{ secrets.APP_VERSION_LABEL }}
+          use_existing_version_if_available: true
           region: ${{ secrets.APP_REGION }}
           deployment_package: deploy.zip
