@@ -25,7 +25,7 @@ def health_check():
     Returns:
         _type_: json
     """
-    return {'message': 'ok ok'}
+    return {'message': 'ok'}
 
 def upload_images(images, post_id):
     urls = []
