@@ -2,20 +2,22 @@
 import os
 import uuid
 import boto3
+from dotenv import load_dotenv
 from flask import Flask, request, abort
 from flask_restful import reqparse, abort, Api, Resource
 
 
+load_dotenv()
 app = Flask(__name__)
 api = Api(app)
 dynamodb = boto3.client('dynamodb',
-                    region_name=os.environ['APP_REGION'],
-                    aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
-                    aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
+                    region_name=os.getenv('APP_REGION'),
+                    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+                    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
 s3 = boto3.client('s3',
-                    region_name=os.environ['APP_REGION'],
-                    aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'],
-                    aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
+                    region_name=os.getenv('APP_REGION'),
+                    aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+                    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
 
 @app.route("/")
 def health_check():
@@ -33,7 +35,7 @@ def upload_images(images, post_id):
 
         try:
             key = f'{post_id}/{image.filename}'
-            bucket = os.environ['S3_BUCKET']
+            bucket = os.getenv('S3_BUCKET')
             s3.put_object(
                 Body=image,
                 Bucket=bucket,
@@ -46,10 +48,10 @@ def upload_images(images, post_id):
     return urls
 
 def delete_images(post_id):
-    res = s3.list_objects(Bucket=os.environ['S3_BUCKET'], Prefix=post_id)
+    res = s3.list_objects(Bucket=os.getenv('S3_BUCKET'), Prefix=post_id)
     deleting_keys = {'Objects': []}
     deleting_keys['Objects'] = [{'Key' : k} for k in [obj['Key'] for obj in res.get('Contents', [])]]
-    s3.delete_objects(Bucket=os.environ['S3_BUCKET'], Delete=deleting_keys)
+    s3.delete_objects(Bucket=os.environ('S3_BUCKET'), Delete=deleting_keys)
 
 
 class RetriveUpdateDestroyPost(Resource):
