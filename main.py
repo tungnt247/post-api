@@ -110,7 +110,7 @@ class RetriveUpdateDestroyPost(Resource):
         if res.get('Item'):
             return res['Item']
         else:
-            abort(404, message=f'Post with id {post_id} is not exist')
+            abort(404, message=f'Post with id {post_id} is not exist!')
 
     def _set_post_params(self):
         parser = reqparse.RequestParser()
