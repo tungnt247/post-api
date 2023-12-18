@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
       - name: Make envfile
         uses: ozaytsev86/create-env-file@v1
         with:
@@ -16,10 +19,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           APP_REGION: ${{ secrets.APP_REGION }}
           S3_BUCKET: ${{ secrets.S3_BUCKET }}
-
-
-      - name: Checkout source code
-        uses: actions/checkout@v4
 
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
