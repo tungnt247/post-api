@@ -2,10 +2,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 .Python
-env/
 .python-version
 venv/
-ENV/
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
