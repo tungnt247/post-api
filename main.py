@@ -51,7 +51,7 @@ def delete_images(post_id):
     res = s3.list_objects(Bucket=os.getenv('S3_BUCKET'), Prefix=post_id)
     deleting_keys = {'Objects': []}
     deleting_keys['Objects'] = [{'Key' : k} for k in [obj['Key'] for obj in res.get('Contents', [])]]
-    s3.delete_objects(Bucket=os.environ('S3_BUCKET'), Delete=deleting_keys)
+    s3.delete_objects(Bucket=os.getenv('S3_BUCKET'), Delete=deleting_keys)
 
 
 class RetriveUpdateDestroyPost(Resource):
